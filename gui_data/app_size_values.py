@@ -7,10 +7,15 @@ from PIL import ImageTk
 OPERATING_SYSTEM = platform.system()
 
 def get_screen_height():
-    monitors = get_monitors()
-    if len(monitors) == 0:
-        raise Exception("Failed to get screen height")
-    return monitors[0].height, monitors[0].width
+    try:
+        monitors = get_monitors()
+        if len(monitors) == 0:
+            # TODO handle cli mode
+            return 1000, 1000
+            raise Exception("Failed to get screen height")
+        return monitors[0].height, monitors[0].width
+    except:
+        return 1000, 1000
 
 def scale_values(value):
     if not SCALE_WIN_SIZE == 1920:
@@ -26,36 +31,36 @@ SCREEN_SIZE_VALUES = {
         "normal": {
             "credits_img":(100, 100),
             ## App Size
-            'IMAGE_HEIGHT': 140, 
-            'FILEPATHS_HEIGHT': 75, 
-            'OPTIONS_HEIGHT': 262, 
+            'IMAGE_HEIGHT': 140,
+            'FILEPATHS_HEIGHT': 75,
+            'OPTIONS_HEIGHT': 262,
             'CONVERSIONBUTTON_HEIGHT': 30,
-            'COMMAND_HEIGHT': 141, 
-            'PROGRESS_HEIGHT': 25, 
-            'PADDING': 7, 
+            'COMMAND_HEIGHT': 141,
+            'PROGRESS_HEIGHT': 25,
+            'PADDING': 7,
             'WIDTH': 680
         },
         "small": {
             "credits_img":(50, 50),
-            'IMAGE_HEIGHT': 140, 
-            'FILEPATHS_HEIGHT': 75, 
-            'OPTIONS_HEIGHT': 262, 
-            'CONVERSIONBUTTON_HEIGHT': 30, 
-            'COMMAND_HEIGHT': 80, 
-            'PROGRESS_HEIGHT': 25, 
-            'PADDING': 5, 
+            'IMAGE_HEIGHT': 140,
+            'FILEPATHS_HEIGHT': 75,
+            'OPTIONS_HEIGHT': 262,
+            'CONVERSIONBUTTON_HEIGHT': 30,
+            'COMMAND_HEIGHT': 80,
+            'PROGRESS_HEIGHT': 25,
+            'PADDING': 5,
             'WIDTH': 680
         },
         "medium": {
             "credits_img":(50, 50),
             ## App Size
-            'IMAGE_HEIGHT': 140, 
-            'FILEPATHS_HEIGHT': 75, 
-            'OPTIONS_HEIGHT': 262, 
-            'CONVERSIONBUTTON_HEIGHT': 30, 
-            'COMMAND_HEIGHT': 115, 
-            'PROGRESS_HEIGHT': 25, 
-            'PADDING': 7, 
+            'IMAGE_HEIGHT': 140,
+            'FILEPATHS_HEIGHT': 75,
+            'OPTIONS_HEIGHT': 262,
+            'CONVERSIONBUTTON_HEIGHT': 30,
+            'COMMAND_HEIGHT': 115,
+            'PROGRESS_HEIGHT': 25,
+            'PADDING': 7,
             'WIDTH': 680
         },
 }
@@ -97,13 +102,13 @@ class ImagePath():
         self.play_img = self.open_image(path=play_path, size=(image_scale_1, image_scale_1))
         self.pause_img = self.open_image(path=pause_path, size=(image_scale_1, image_scale_1))
         self.help_img = self.open_image(path=help_path, size=(image_scale_1, image_scale_1))
-        self.download_img = self.open_image(path=download_path, size=(image_scale_2, image_scale_2))       
-        self.donate_img = self.open_image(path=donate_path, size=(image_scale_2, image_scale_2))    
-        self.key_img = self.open_image(path=key_path, size=(image_scale_2, image_scale_2))     
+        self.download_img = self.open_image(path=download_path, size=(image_scale_2, image_scale_2))
+        self.donate_img = self.open_image(path=donate_path, size=(image_scale_2, image_scale_2))
+        self.key_img = self.open_image(path=key_path, size=(image_scale_2, image_scale_2))
         self.up_img = self.open_image(path=up_img_path, size=(image_scale_2, image_scale_2))
-        self.down_img = self.open_image(path=down_img_path, size=(image_scale_2, image_scale_2))       
-        self.left_img = self.open_image(path=left_img_path, size=(image_scale_2, image_scale_2))    
-        self.right_img = self.open_image(path=right_img_path, size=(image_scale_2, image_scale_2))   
+        self.down_img = self.open_image(path=down_img_path, size=(image_scale_2, image_scale_2))
+        self.left_img = self.open_image(path=left_img_path, size=(image_scale_2, image_scale_2))
+        self.right_img = self.open_image(path=right_img_path, size=(image_scale_2, image_scale_2))
         self.clear_img = self.open_image(path=clear_img_path, size=(image_scale_2, image_scale_2))
         self.copy_img = self.open_image(path=copy_img_path, size=(image_scale_2, image_scale_2))
         self.credits_img = self.open_image(path=credits_path, size=determined_size["credits_img"])
@@ -135,7 +140,7 @@ class ImagePath():
                 img = img.resize((size[0], int(size[0] * ratio)), Image.ANTIALIAS)
             else:
                 img = img.resize(size, Image.ANTIALIAS)
-                
+
         return ImageTk.PhotoImage(img)
 
 #All Sizes Below Calibrated to 1080p!
@@ -181,7 +186,7 @@ elif OPERATING_SYSTEM=="Linux":
    VR_BUT_WIDTH = 18
    SET_MENUS_CHECK_WIDTH = 13
    COMBO_WIDTH = 16
-   SET_VOC_SPLIT_CHECK_WIDTH = 25                      
+   SET_VOC_SPLIT_CHECK_WIDTH = 25
    FONT_SIZE_F1 = 10
    FONT_SIZE_F2 = 8
    FONT_SIZE_F3 = 9
@@ -207,7 +212,7 @@ elif OPERATING_SYSTEM=="Windows":
    VR_BUT_WIDTH = 16
    SET_MENUS_CHECK_WIDTH = 13
    COMBO_WIDTH = 14
-   SET_VOC_SPLIT_CHECK_WIDTH = 23                      
+   SET_VOC_SPLIT_CHECK_WIDTH = 23
    FONT_SIZE_F1 = 10
    FONT_SIZE_F2 = 8
    FONT_SIZE_F3 = 9
@@ -243,7 +248,7 @@ MENU_PADDING_2 = 10
 MENU_PADDING_3 = 15
 MENU_PADDING_4 = 3
 
-#Main Frame Sizes 
+#Main Frame Sizes
 X_CONVERSION_BUTTON_1080P = 50
 WIDTH_CONVERSION_BUTTON_1080P = -100
 HEIGHT_GENERIC_BUTTON_1080P = 35
